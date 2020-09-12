@@ -77,9 +77,6 @@ export const refreshFavoritesData = (favoritesItems) => {
     var updatedFavorites = [];
     var promises = [];
 
-    // RootNavigation.navigate("Favorites");
-    // return;
-
     return (dispatch) => {
         dispatch({ type: FAVORITES_REFRESH_DATA });
         try {

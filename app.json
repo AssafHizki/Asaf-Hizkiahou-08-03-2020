@@ -20,6 +20,10 @@
       "supportsTablet": true,
       "requireFullScreen": true
     },
+    "android": {
+      "package": "com.yourcompany.yourappname",
+      "versionCode": 1
+    },
     "web": {
       "favicon": "./assets/favicon.png"
     }

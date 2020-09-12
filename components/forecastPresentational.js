@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, SafeAreaView, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, SafeAreaView, Text, TouchableOpacity, StyleSheet, ScrollView, FlatList } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import PropTypes from 'prop-types';
+import moment from "moment";
 
 const forecastPresentational = (props) => {
     var cityIcon = 'glass';
@@ -12,6 +13,27 @@ const forecastPresentational = (props) => {
     else if (props.cityWeather?.isDayTime) {
         cityIcon = 'camera-retro';
     }
+
+    let renderItem = ({ item }) => (
+        <View key={item.date} style={{ margin: 5 }}>
+            <Text style={[styles.text, { alignSelf: 'auto' }]}> {item.date && moment().format(item.date)}</Text>
+            <View style={{ flexDirection: 'row' }}>
+                <Text style={styles.text}>{
+                    props.isTempUnitMetric ?
+                        item.temp?.min.metric
+                        :
+                        item.temp?.min.imperial
+                }</Text>
+                <Text style={styles.text}> - </Text>
+                <Text style={styles.text}>{
+                    props.isTempUnitMetric ?
+                        item.temp?.max.metric
+                        :
+                        item.temp?.max.imperial
+                }</Text>
+            </View>
+        </View>
+    );
 
     return (
         <SafeAreaView>
@@ -45,21 +67,11 @@ const forecastPresentational = (props) => {
                     <View>
                         <Text style={[styles.text, { fontSize: 25, marginVertical: 10 }]}>{props.cityWeather?.weatherText}</Text>
                     </View>
-                    <View style={{ flexDirection: 'row' }}>
-                        {props.cityWeather?.dailyForecasts.map((day) => {
-                            return (
-                                <View key={day.date}>
-                                    <Text style={styles.text}> {day.date?.toLocaleString('en-us', { weekday: 'long' })}</Text>
-                                    <Text style={styles.text}>{
-                                        props.isTempUnitMetric ?
-                                            day.temp?.max.metric
-                                            :
-                                            day.temp?.max.imperial
-                                    }</Text>
-                                </View>
-                            )
-                        })}
-                    </View>
+                    <FlatList
+                        data={props.cityWeather?.dailyForecasts}
+                        renderItem={renderItem}
+                        keyExtractor={item => item.key}
+                    />
                 </View>
             </View>
         </SafeAreaView>

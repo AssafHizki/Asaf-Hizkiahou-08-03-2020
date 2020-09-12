@@ -15,25 +15,6 @@ export const searchCity = (city) => {
     return (dispatch) => {
         dispatch({ type: CITY_WEATHER_GET_CITY_WEATHER, payload: city });
 
-        // var currentWeather = {
-        //     name: "Tel Aviv",
-        //     key: "2214124",
-        //     temp: {
-        //         metric: '30 C',
-        //         imperial: '60 F',
-        //     },
-        //     weatherText: "Sunny",
-        //     isDayTime: true,
-        //     dailyForecasts: [
-        //         { date: '2020-09-12', temp: { min: { metric: "40 C", imperial: "80 F" }, max: { metric: "40 C", imperial: "80 F" } } },
-        //         { date: '2020-09-13', temp: { min: { metric: "40 C", imperial: "80 F" }, max: { metric: "40 C", imperial: "80 F" } } },
-        //         { date: '2020-09-14', temp: { min: { metric: "40 C", imperial: "80 F" }, max: { metric: "40 C", imperial: "80 F" } } },
-        //         { date: '2020-09-15', temp: { min: { metric: "40 C", imperial: "80 F" }, max: { metric: "40 C", imperial: "80 F" } } },
-        //         { date: '2020-09-16', temp: { min: { metric: "40 C", imperial: "80 F" }, max: { metric: "40 C", imperial: "80 F" } } }
-        //     ]
-        // }
-        // searchCitySuccess(dispatch, currentWeather);
-
         API.getLocation(city)
             .then((res) => {
                 if (Array.isArray(res)) {
@@ -73,9 +54,6 @@ const searchCityFail = (dispatch, err) => {
 export const getCity = (cityObj) => {
     return (dispatch) => {
         dispatch({ type: CITY_WEATHER_GET_CITY_WEATHER, payload: cityObj.name });
-
-        // RootNavigation.navigate('Home');
-        // return;
 
         try {
             getCityByKey(cityObj)
