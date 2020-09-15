@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, SafeAreaView, Text, TouchableOpacity, StyleSheet, ScrollView, FlatList } from "react-native";
+import { View, SafeAreaView, Text, TouchableOpacity, StyleSheet, FlatList } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import PropTypes from 'prop-types';
 import moment from "moment";
@@ -16,7 +16,7 @@ const forecastPresentational = (props) => {
 
     let renderItem = ({ item }) => (
         <View key={item.date} style={{ margin: 5 }}>
-            <Text style={[styles.text, { alignSelf: 'auto' }]}> {item.date && moment().format(item.date)}</Text>
+            <Text style={[styles.text, { alignSelf: 'auto' }]}> {item.date && moment(item.date).format('dddd')}</Text>
             <View style={{ flexDirection: 'row' }}>
                 <Text style={styles.text}>{
                     props.isTempUnitMetric ?
@@ -70,7 +70,7 @@ const forecastPresentational = (props) => {
                     <FlatList
                         data={props.cityWeather?.dailyForecasts}
                         renderItem={renderItem}
-                        keyExtractor={item => item.key}
+                        keyExtractor={({ item }) => item?.key}
                     />
                 </View>
             </View>
